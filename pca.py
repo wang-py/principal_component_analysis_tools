@@ -13,8 +13,12 @@ def read_xvg(xvg_file):
             # skip time data
             position.append(line_entry[1:])
 
-    return position
+    position_string = np.array(position)
+    position_data = position_string.astype(np.float)
+    return position_data
 
 if __name__ == "__main__":
     xvg_file = open(sys.argv[1], 'r')
-    pos = read_xvg(xvg_file)
+    # use numpy array
+    pos = np.array(read_xvg(xvg_file))
+    pos_sum = np.sum(pos, axis=0)
