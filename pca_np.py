@@ -17,9 +17,6 @@ def read_xvg(xvg_file):
     position_data = position_string.astype(np.float)
     return position_data
 
-def calculate_covariance_matrix(pos, pos_mean):
-    return
-
 if __name__ == "__main__":
     xvg_file = open(sys.argv[1], 'r')
     # use numpy array
@@ -27,3 +24,13 @@ if __name__ == "__main__":
     pos_sum = np.sum(pos, axis=0)
     # manually averaging
     pos_mean = pos_sum / len(pos[:, 0])
+    # numpy covariance calculation
+    pos_cov = np.cov(pos, rowvar=False)
+    # eigen values calculation
+    pos_eigval, pos_eigvector = np.linalg.eig(pos_cov)
+    # shift the average to zero
+    pos_shifted = pos - pos_mean
+    # shifted covariance
+    pos_shifted_cov = np.cov(pos_shifted, rowvar=False)
+    # shifted eigenvalues
+    pos_shifted_eig = np.linalg.eig(pos_shifted_cov)
