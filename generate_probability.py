@@ -20,17 +20,17 @@ number_of_res = int(output_mode.shape[0] / 3)
 output_mode_reshaped = output_mode.reshape(number_of_res, 3)
 
 # find the probability vector by squaring the eigenvector
-probaility_vec = np.square(output_mode_reshaped)
+probability_vec = np.square(output_mode_reshaped)
 
 # sum up three directions of probability components
-probaility_by_res = np.sum(probaility_vec, axis=1)
+probability_by_res = np.sum(probability_vec, axis=1)
 
 # normalize by the maximum value
-probaility_by_res_norm = probaility_by_res / np.amax(probaility_by_res)
+probability_by_res_norm = probability_by_res / np.amax(probability_by_res)
 
 # write to output file
 output_file = open(probability_file, 'w')
-for one_res in probaility_by_res_norm:
+for one_res in probability_by_res_norm:
     output_file.write(str(one_res) + "\n")
 
 output_file.close()
