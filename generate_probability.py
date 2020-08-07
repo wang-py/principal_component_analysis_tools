@@ -10,6 +10,7 @@ mode = int(sys.argv[2])
 # output text file
 probability_file = sys.argv[3]
 
+# calculate the eigenvectors
 mean1, mean2, cov, s, u, v = get_xvg_stats(xvgfile)
 
 # selected mode for output
