@@ -39,3 +39,4 @@ if __name__ == "__main__":
     mode = int(sys.argv[2])
     # output text file
     probability_file = sys.argv[3]
+    generate_color_profile(xvgfile, mode, probability_file)
