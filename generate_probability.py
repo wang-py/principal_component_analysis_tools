@@ -28,6 +28,9 @@ probability_by_res = np.sum(probability_vec, axis=1)
 # normalize by the maximum value
 probability_by_res_norm = probability_by_res / np.amax(probability_by_res)
 
+# finding cubic root
+probability_by_res_norm = np.cbrt(probability_by_res_norm)
+
 # write to output file
 output_file = open(probability_file, 'w')
 for one_res in probability_by_res_norm:
