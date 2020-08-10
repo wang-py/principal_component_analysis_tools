@@ -25,9 +25,13 @@ def generate_color_profile(xvgfile, mode, output_file):
     # finding cubic root
     probability_by_res_norm = np.cbrt(probability_by_res_norm)
 
+    return probability_by_res_norm
+
+
+def save_color_to_file(color_profile, filename):
     # write to output file
-    output_file = open(probability_file, 'w')
-    for one_res in probability_by_res_norm:
+    output_file = open(filename, 'w')
+    for one_res in color_profile:
         output_file.write(str(one_res) + "\n")
 
     output_file.close()
@@ -39,4 +43,5 @@ if __name__ == "__main__":
     mode = int(sys.argv[2])
     # output text file
     probability_file = sys.argv[3]
-    generate_color_profile(xvgfile, mode, probability_file)
+    color_profile = generate_color_profile(xvgfile, mode, probability_file)
+    save_color_to_file(color_profile, probability_file)
