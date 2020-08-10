@@ -1,2 +1,3 @@
 xvg/
 *.txt
+__pycache__/
