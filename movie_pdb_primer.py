@@ -14,10 +14,14 @@ if __name__ == "__main__":
     # output pdb name
     movie_primer_pdb = sys.argv[4]
 
+    # load pdb into pymol
+    cmd.load(input_pdb)
+
     color_profile = generate_color_profile(xvgfile, mode)
-    for color in color_profile:
+    for i in range(len(color_profile)):
+        color = color_profile[i]
         # change the b factors of input pdb here
-        cmd.alter("%s and ")
+        cmd.alter("%s and index %s and n. CA"%(input_pdb, i), "b=%s"%color)
 
     #TODO: save the primer pdb here
     #cmd.save()
