@@ -1,5 +1,5 @@
 from modes import get_xvg_stats
-
+import numpy as np
 import sys
 
 if __name__ == '__main__':
