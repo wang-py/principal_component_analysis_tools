@@ -3,7 +3,7 @@ from modes import modes
 import sys
 import numpy as np
 
-def generate_color_profile(xvgfile, mode, output_file):
+def generate_color_profile(xvgfile, mode):
     # calculate the eigenvectors
     u = get_xvg_stats(xvgfile)[4]
 
