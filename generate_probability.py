@@ -1,14 +1,9 @@
-from modes import get_xvg_stats
-from modes import modes
 import sys
 import numpy as np
 
-def generate_color_profile(xvgfile, mode):
-    # calculate the eigenvectors
-    u = get_xvg_stats(xvgfile)[4]
-
+def generate_color_profile(eigenvectors, mode):
     # selected mode for output
-    output_mode = u[mode]
+    output_mode = eigenvectors[mode]
     # reshape the vector into N * 3 (N is number of residues)
     number_of_res = int(output_mode.shape[0] / 3)
     output_mode_reshaped = output_mode.reshape(number_of_res, 3)
