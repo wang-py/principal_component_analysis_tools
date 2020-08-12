@@ -37,6 +37,4 @@ if __name__ == "__main__":
     color_profile = generate_color_profile(input_ev, mode)
     
     index = read_ndx(input_index)
-    new_df = change_bfactor_to_color(ppdb.df['ATOM'], index['Protein'], color_profile)
-    
-    ppdb.to_pdb(movie_pdb)
+    colored_pdb = change_bfactor_to_color(ppdb.df['ATOM'], index['Protein'], color_profile)
