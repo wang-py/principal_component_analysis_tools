@@ -7,6 +7,8 @@ from gmx_file_processing import match_col_in_int_list, read_ndx
 from modes import shift_by_mode
 import numpy as np
 import sys
+import os
+import shutil
 
 # change b factors into color values
 def change_bfactor_to_color(df, indices, color_profile):
@@ -22,11 +24,15 @@ def change_bfactor_to_color(df, indices, color_profile):
 def render_one_frame(df, mode, indices, amplitude):
     return 
 
-def make_buffer_folder()
+def make_buffer_folder(path):
+    os.mkdir(path)
 
-def rm_buffer()
+def rm_buffer(path):
+    shutil.rmtree(path)
 
-def combine_buffer_to_pdb()
+# combine individual frames into a complete pdb movie
+def combine_buffer_to_pdb(path):
+    return
 
 # movie making function
 def make_movie(df, mode, indices, amplitude, period):
