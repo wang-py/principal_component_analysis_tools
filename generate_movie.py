@@ -49,24 +49,25 @@ def concatenate_pdbs(pdb_frame, frame_index, movie_pdb_file):
     
 
 # movie making function
-def make_movie(df, mode, indices, amplitude, period):
+def make_movie(df, output_pdb, mode, indices, amplitude, period):
     buffer_folder = "movie_buffer"
     buffer_prefix = "frame"
 
     make_buffer_folder(buffer_folder)
     
-    time_steps = np.linspace(-float(0), float(400), num = 401)
+    time_steps = np.linspace(float(0), float(400), num = 401)
     amplitude_frames = float(amplitude) * np.cos(np.pi * time_steps / period)
     for i in range(len(amplitude_frames)):
         frame_df = render_one_frame(df, mode, indices, amplitude_frames[i])
         # save buffer pdb in the buffer folder
         frame_pdb = PandasPdb()
         frame_pdb.df['ATOM'] = frame_df
-        pdb_prefix = buffer_folder + "/" + buffer_prefix
-        frame_pdb.to_pdb(pdb_prefix+str(i)+".pdb", records=['ATOM'], \
+        pdb_filename = buffer_folder + "/" + buffer_prefix + str(i) + '.pdb'
+        frame_pdb.to_pdb(pdb_filename, records=['ATOM'], \
             gz=False, append_newline=True)
-    
-    # TODO: combine buffers here
+        # combine buffers here
+        concatenate_pdbs(pdb_filename, i, output_pdb)
+    # remove buffers
     rm_buffer(buffer_folder)
 
 if __name__ == "__main__":
@@ -88,4 +89,4 @@ if __name__ == "__main__":
     
     index = read_ndx(input_index)
     colored_pdb_df = change_bfactor_to_color(ppdb.df['ATOM'], index['Protein'], color_profile)
-    make_movie(colored_pdb_df, mode, index['Protein'], 50, 200)
+    make_movie(colored_pdb_df, movie_pdb, mode, index['Protein'], 50, 200)
