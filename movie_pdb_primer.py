@@ -27,7 +27,7 @@ if __name__ == "__main__":
     for i in range(len(color_profile)):
         color = color_profile[i]
         # change the b factors of input pdb here
-        cmd.alter("%s and index %s and n. CA"%(input_pdb_name, i), "b=%s"%color)
+        cmd.alter("%s and index %s and n. CA"%(input_pdb_name, i + 1), "b=%s"%color)
 
     # save the primer pdb here
     cmd.save(movie_primer_pdb)
