@@ -3,13 +3,14 @@
 
 from biopandas.pdb import PandasPdb
 from generate_probability import generate_color_profile
+import numpy as np
 import sys
 
 if __name__ == "__main__":
     # starting structure
     input_pdb = sys.argv[1]
     # eigenvectors (modes)
-    input_ev = sys.argv[2]
+    input_ev = np.load(sys.argv[2])
     # PCA mode
     mode = int(sys.argv[3])
     # biopandas dataframe
@@ -20,5 +21,5 @@ if __name__ == "__main__":
     
     for i in range(len(color_profile)):
         color = color_profile[i]
-        ppdb.df['bfactor'][i] = color
+        ppdb.df['ATOM']['b_factor'][i] = color
     
