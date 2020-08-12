@@ -57,6 +57,8 @@ def make_movie(df, output_pdb, mode, indices, amplitude, period):
     
     time_steps = np.linspace(float(0), float(400), num = 401)
     amplitude_frames = float(amplitude) * np.cos(np.pi * time_steps / period)
+    movie = open(output_pdb, 'w')
+    # movie making loop
     for i in range(len(amplitude_frames)):
         frame_df = render_one_frame(df, mode, indices, amplitude_frames[i])
         # save buffer pdb in the buffer folder
@@ -66,8 +68,9 @@ def make_movie(df, output_pdb, mode, indices, amplitude, period):
         frame_pdb.to_pdb(pdb_filename, records=['ATOM'], \
             gz=False, append_newline=True)
         # combine buffers here
-        concatenate_pdbs(pdb_filename, i, output_pdb)
+        concatenate_pdbs(pdb_filename, i, movie)
     # remove buffers
+    movie.close()
     rm_buffer(buffer_folder)
 
 if __name__ == "__main__":
