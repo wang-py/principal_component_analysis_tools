@@ -21,7 +21,6 @@ if __name__ == "__main__":
     # generate color profile based on chosen mode
     color_profile = generate_color_profile(input_ev, mode)
     
-    ppdb.df = ppdb.df['ATOM'].copy()
     for i in range(len(color_profile)):
         color = color_profile[i]
         ppdb.df['ATOM']['b_factor'][i] = color
