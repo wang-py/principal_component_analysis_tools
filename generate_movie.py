@@ -22,6 +22,7 @@ def change_bfactor_to_color(df, indices, color_profile):
 
 # generate one frame of pdb movie
 def render_one_frame(df, mode, indices, amplitude):
+    mode = mode.reshape(int(len(mode) / 3), 3)
     stat_items=['x_coord', 'y_coord', 'z_coord']
     to_change = df.iloc[match_col_in_int_list(df,'atom_number',indices)]
     coords = to_change[stat_items]
@@ -81,14 +82,15 @@ if __name__ == "__main__":
     # eigenvectors (modes)
     input_ev = np.load(sys.argv[3])
     # PCA mode
-    mode = int(sys.argv[4])
+    mode_index = int(sys.argv[4])
+    mode = input_ev[mode_index]
     # output movie pdb
     movie_pdb = sys.argv[5]
     # biopandas dataframe
     ppdb = PandasPdb()
     ppdb.read_pdb(input_pdb)
     # generate color profile based on chosen mode
-    color_profile = generate_color_profile(input_ev, mode)
+    color_profile = generate_color_profile(input_ev, mode_index)
     
     index = read_ndx(input_index)
     colored_pdb_df = change_bfactor_to_color(ppdb.df['ATOM'], index['Protein'], color_profile)
