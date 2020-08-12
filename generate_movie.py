@@ -38,8 +38,15 @@ def rm_buffer(path):
     shutil.rmtree(path)
 
 # combine individual frames into a complete pdb movie
-def combine_buffer_to_pdb(path):
-    return
+def concatenate_pdbs(pdb_frame, frame_index, movie_pdb_file):
+    # concatenation loop
+    movie_pdb_file.write("TITLE    frame t= " + str(frame_index))
+    movie_pdb_file.write("MODEL    1")
+    with open(pdb_frame, 'r') as f:
+        movie_pdb_file.write(f.read())
+    movie_pdb_file.write("TER")
+    movie_pdb_file.write("ENDMDL")
+    
 
 # movie making function
 def make_movie(df, mode, indices, amplitude, period):
