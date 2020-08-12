@@ -22,7 +22,14 @@ def change_bfactor_to_color(df, indices, color_profile):
 
 # generate one frame of pdb movie
 def render_one_frame(df, mode, indices, amplitude):
-    return 
+    stat_items=['x_coord', 'y_coord', 'z_coord']
+    to_change = df.iloc[match_col_in_int_list(df,'atom_number',indices)]
+    coords = to_change[stat_items]
+    coords += mode * float(amplitude)
+    frame_df = to_change.copy()
+    frame_df[stat_items] = coords
+
+    return frame_df
 
 def make_buffer_folder(path):
     os.mkdir(path)
@@ -36,7 +43,24 @@ def combine_buffer_to_pdb(path):
 
 # movie making function
 def make_movie(df, mode, indices, amplitude, period):
-    return
+    buffer_folder = "movie_buffer"
+    buffer_prefix = "frame"
+
+    make_buffer_folder(buffer_folder)
+    
+    time_steps = np.linspace(-float(0), float(400), num = 401)
+    amplitude_frames = float(amplitude) * np.cos(np.pi * time_steps / period)
+    for i in range(len(amplitude_frames)):
+        frame_df = render_one_frame(df, mode, indices, amplitude_frames[i])
+        # save buffer pdb in the buffer folder
+        frame_pdb = PandasPdb()
+        frame_pdb.df['ATOM'] = frame_df
+        pdb_prefix = buffer_folder + "/" + buffer_prefix
+        frame_pdb.to_pdb(pdb_prefix+str(i)+".pdb", records=['ATOM'], \
+            gz=False, append_newline=True)
+    
+    # TODO: combine buffers here
+    rm_buffer(buffer_folder)
 
 if __name__ == "__main__":
     # starting structure
