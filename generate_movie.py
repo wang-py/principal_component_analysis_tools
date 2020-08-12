@@ -8,8 +8,7 @@ from modes import shift_by_mode
 import numpy as np
 import sys
 
-#def make_movie(input_pdb)
-
+# change b factors into color values
 def change_bfactor_to_color(df, indices, color_profile):
     modify_items = ['b_factor']
     to_change = df.iloc[match_col_in_int_list(df, 'atom_number', indices)]
@@ -18,6 +17,10 @@ def change_bfactor_to_color(df, indices, color_profile):
     to_ret = to_change.copy()
     to_ret[modify_items] = color_values
     return to_ret
+
+# movie making function
+def make_movie(df, mode, indices, amplitude, period):
+    return
 
 if __name__ == "__main__":
     # starting structure
