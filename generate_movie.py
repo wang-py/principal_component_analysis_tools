@@ -18,6 +18,16 @@ def change_bfactor_to_color(df, indices, color_profile):
     to_ret[modify_items] = color_values
     return to_ret
 
+# generate one frame of pdb movie
+def render_one_frame(df, mode, indices, amplitude):
+    return 
+
+def make_buffer_folder()
+
+def rm_buffer()
+
+def combine_buffer_to_pdb()
+
 # movie making function
 def make_movie(df, mode, indices, amplitude, period):
     return
@@ -40,4 +50,5 @@ if __name__ == "__main__":
     color_profile = generate_color_profile(input_ev, mode)
     
     index = read_ndx(input_index)
-    colored_pdb = change_bfactor_to_color(ppdb.df['ATOM'], index['Protein'], color_profile)
+    colored_pdb_df = change_bfactor_to_color(ppdb.df['ATOM'], index['Protein'], color_profile)
+    make_movie(colored_pdb_df, mode, index['Protein'], 50, 200)
