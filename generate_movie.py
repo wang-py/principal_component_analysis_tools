@@ -40,12 +40,12 @@ def rm_buffer(path):
 # combine individual frames into a complete pdb movie
 def concatenate_pdbs(pdb_frame, frame_index, movie_pdb_file):
     # concatenation loop
-    movie_pdb_file.write("TITLE    frame t= " + str(frame_index))
-    movie_pdb_file.write("MODEL    1")
+    movie_pdb_file.write("TITLE    frame t= " + str(frame_index) +"\n")
+    movie_pdb_file.write("MODEL    1\n")
     with open(pdb_frame, 'r') as f:
         movie_pdb_file.write(f.read())
-    movie_pdb_file.write("TER")
-    movie_pdb_file.write("ENDMDL")
+    movie_pdb_file.write("TER\n")
+    movie_pdb_file.write("ENDMDL\n")
     
 
 # movie making function
