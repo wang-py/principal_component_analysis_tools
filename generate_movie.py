@@ -13,13 +13,17 @@ if __name__ == "__main__":
     input_ev = np.load(sys.argv[2])
     # PCA mode
     mode = int(sys.argv[3])
+    # output movie pdb
+    movie_pdb = sys.argv[4]
     # biopandas dataframe
     ppdb = PandasPdb()
     ppdb.read_pdb(input_pdb)
     # generate color profile based on chosen mode
     color_profile = generate_color_profile(input_ev, mode)
     
+    ppdb.df = ppdb.df['ATOM'].copy()
     for i in range(len(color_profile)):
         color = color_profile[i]
         ppdb.df['ATOM']['b_factor'][i] = color
     
+    ppdb.to_pdb(movie_pdb)
