@@ -50,13 +50,14 @@ def concatenate_pdbs(pdb_frame, frame_index, movie_pdb_file):
     
 
 # movie making function
-def make_movie(df, output_pdb, mode, indices, amplitude, period):
+def make_movie(df, output_pdb, mode, indices, amplitude, frames):
     buffer_folder = "movie_buffer"
     buffer_prefix = "frame"
 
     make_buffer_folder(buffer_folder)
     
-    time_steps = np.linspace(float(0), float(400), num = 401)
+    time_steps = np.linspace(float(0), float(frames), num = frames + 1)
+    period = int(frames / 2)
     amplitude_frames = float(amplitude) * np.cos(np.pi * time_steps / period)
     movie = open(output_pdb, 'w')
     # movie making loop
@@ -83,7 +84,7 @@ if __name__ == "__main__":
     input_ev = np.load(sys.argv[3])
     # PCA mode
     mode_index = int(sys.argv[4])
-    mode = input_ev[mode_index]
+    mode = input_ev[:, mode_index]
     # output movie pdb
     movie_pdb = sys.argv[5]
     # biopandas dataframe
@@ -94,4 +95,4 @@ if __name__ == "__main__":
     
     index = read_ndx(input_index)
     colored_pdb_df = change_bfactor_to_color(ppdb.df['ATOM'], index['Protein'], color_profile)
-    make_movie(colored_pdb_df, movie_pdb, mode, index['Protein'], 50, 200)
+    make_movie(colored_pdb_df, movie_pdb, mode, index['Protein'], 15, 200)
