@@ -22,3 +22,6 @@ for pdb in $input; do
     echo "ENDMDL" >> $output
     let frame=frame+1
 done
+
+rm -rf $DIR
+mkdir $DIR
