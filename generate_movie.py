@@ -95,4 +95,4 @@ if __name__ == "__main__":
     
     index = read_ndx(input_index)
     colored_pdb_df = change_bfactor_to_color(ppdb.df['ATOM'], index['Protein'], color_profile)
-    make_movie(colored_pdb_df, movie_pdb, mode, index['Protein'], 15, 200)
+    make_movie(colored_pdb_df, movie_pdb, mode, index['Protein'], 50, 200)
