@@ -3,7 +3,7 @@ import numpy as np
 
 def generate_color_profile(eigenvectors, mode):
     # selected mode for output
-    output_mode = eigenvectors[mode]
+    output_mode = eigenvectors[:, mode]
     # reshape the vector into N * 3 (N is number of residues)
     number_of_res = int(output_mode.shape[0] / 3)
     output_mode_reshaped = output_mode.reshape(number_of_res, 3)
