@@ -43,7 +43,7 @@ def get_one_correlation_value(cov_matrix, focus_atom, correlated_atom):
 # cov_matrix: covariance matrix before diagonalization
 # atom_number_index: atom to analyze, atom number - 1
 def generate_correlation_color_profile(cov_matrix, focus_atom_number_index):
-    atom_count = int(cov_matrix.shape[0]) / 3
+    atom_count = int(cov_matrix.shape[0] / 3)
 
     correlation_vector = []
 
@@ -71,4 +71,4 @@ if __name__ == "__main__":
     probability_file = sys.argv[3]
     color_profile = generate_probability_color_profile(eigen_matrix, mode)
     correlation_color_profile = generate_correlation_color_profile(eigen_matrix, 0)
-    save_color_to_file(color_profile, probability_file)
+    save_color_to_file(correlation_color_profile, probability_file)
