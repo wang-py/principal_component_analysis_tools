@@ -2,7 +2,7 @@
 # proper coloring of corresponding PCA mode
 
 from biopandas.pdb import PandasPdb
-from generate_probability import generate_color_profile
+from generate_probability import generate_probability_color_profile
 from gmx_file_processing import match_col_in_int_list, read_ndx
 from modes import shift_by_mode
 import numpy as np
@@ -91,7 +91,7 @@ if __name__ == "__main__":
     ppdb = PandasPdb()
     ppdb.read_pdb(input_pdb)
     # generate color profile based on chosen mode
-    color_profile = generate_color_profile(input_ev, mode_index)
+    color_profile = generate_probability_color_profile(input_ev, mode_index)
     
     index = read_ndx(input_index)
     colored_pdb_df = change_bfactor_to_color(ppdb.df['ATOM'], index['System'], color_profile)

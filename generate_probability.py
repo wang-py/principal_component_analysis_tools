@@ -1,7 +1,7 @@
 import sys
 import numpy as np
 
-def generate_color_profile(eigenvectors, mode):
+def generate_probability_color_profile(eigenvectors, mode):
     # selected mode for output
     output_mode = eigenvectors[:, mode]
     # reshape the vector into N * 3 (N is number of residues)
@@ -22,6 +22,10 @@ def generate_color_profile(eigenvectors, mode):
 
     return probability_by_res_norm
 
+# this function generates a color profile based on covariances of a chosen atom
+# with every atom in the system
+def generate_correlation_color_profile(mode, atom_number):
+    return
 
 def save_color_to_file(color_profile, filename):
     # write to output file
