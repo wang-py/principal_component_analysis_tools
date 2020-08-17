@@ -2,7 +2,7 @@
 # proper coloring of corresponding PCA mode
 
 from biopandas.pdb import PandasPdb
-from generate_probability import generate_probability_color_profile
+from pca_coloring import generate_probability_color_profile
 from gmx_file_processing import match_col_in_int_list, read_ndx
 from modes import shift_by_mode
 import numpy as np
