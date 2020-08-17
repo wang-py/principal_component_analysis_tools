@@ -43,11 +43,11 @@ def get_one_correlation_value(cov_matrix, focus_atom, correlated_atom):
 # cov_matrix: covariance matrix before diagonalization
 # atom_number_index: atom to analyze, atom number - 1
 def generate_correlation_color_profile(cov_matrix, focus_atom_number_index):
-    atom_count = int(cov_matrix.shape[0] / 3)
+    atom_index_max = cov_matrix.shape[0]
 
     correlation_vector = []
 
-    for i in range(atom_count):
+    for i in range(0, atom_index_max, 3):
         one_correlation = get_one_correlation_value(cov_matrix, focus_atom_number_index, i)
         correlation_vector.append(one_correlation)
 
