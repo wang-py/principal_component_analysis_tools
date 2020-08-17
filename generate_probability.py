@@ -25,18 +25,33 @@ def generate_probability_color_profile(eigenvectors, mode):
 # this function scans through the covariance matrix
 # and generates one value for one atom
 def get_one_correlation_value(cov_matrix, focus_atom, correlated_atom):
-    x_f = cov_matrix[focus_atom - 1, :]
-    y_f = cov_matrix[focus_atom, :]
-    z_f = cov_matrix[focus_atom + 1, :]
+    # indices of the focus atom
+    f = [focus_atom - 1, focus_atom, focus_atom + 1]
+    # indices of the correlated atom
+    c = [correlated_atom - 1, correlated_atom, correlated_atom + 1]
+    cor_sum = 0
+    # scanning loop
+    for fi in f:
+        for ci in c:
+            cor_sum += np.abs(cov_matrix[fi, ci])
+
+    return cor_sum
+    
 
 # this function generates a color profile based on covariances of a chosen atom
 # with every atom in the system
 # cov_matrix: covariance matrix before diagonalization
 # atom_number: atom to analyze
 def generate_correlation_color_profile(cov_matrix, focus_atom_number):
-    covariance_vector = cov_matrix[focus_atom_number - 1]
+    atom_count = cov_matrix.shape[0, :]
 
-    return
+    correlation_vector = []
+
+    for i in range(atom_count):
+        one_correlation = get_one_correlation_value(cov_matrix, focus_atom_number, i)
+        correlation_vector.append(one_correlation)
+
+    return correlation_vector
 
 def save_color_to_file(color_profile, filename):
     # write to output file
