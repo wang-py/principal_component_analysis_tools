@@ -26,9 +26,9 @@ def generate_probability_color_profile(eigenvectors, mode):
 # and generates one value for one atom
 def get_one_correlation_value(cov_matrix, focus_atom, correlated_atom):
     # indices of the focus atom
-    f = [focus_atom - 1, focus_atom, focus_atom + 1]
+    f = [focus_atom, focus_atom + 1, focus_atom + 2]
     # indices of the correlated atom
-    c = [correlated_atom - 1, correlated_atom, correlated_atom + 1]
+    c = [correlated_atom, correlated_atom + 1, correlated_atom + 2]
     cor_sum = 0
     # scanning loop
     for fi in f:
@@ -41,14 +41,14 @@ def get_one_correlation_value(cov_matrix, focus_atom, correlated_atom):
 # this function generates a color profile based on covariances of a chosen atom
 # with every atom in the system
 # cov_matrix: covariance matrix before diagonalization
-# atom_number: atom to analyze
-def generate_correlation_color_profile(cov_matrix, focus_atom_number):
-    atom_count = cov_matrix.shape[0, :]
+# atom_number_index: atom to analyze, atom number - 1
+def generate_correlation_color_profile(cov_matrix, focus_atom_number_index):
+    atom_count = int(cov_matrix.shape[0]) / 3
 
     correlation_vector = []
 
     for i in range(atom_count):
-        one_correlation = get_one_correlation_value(cov_matrix, focus_atom_number, i)
+        one_correlation = get_one_correlation_value(cov_matrix, focus_atom_number_index, i)
         correlation_vector.append(one_correlation)
 
     return correlation_vector
@@ -62,11 +62,13 @@ def save_color_to_file(color_profile, filename):
     output_file.close()
 
 if __name__ == "__main__":
-    # input xvg file
-    xvgfile = sys.argv[1]
+    # input matrix file
+    eigen_matrix_file = sys.argv[1]
+    eigen_matrix = np.load(eigen_matrix_file)
     # mode number
     mode = int(sys.argv[2])
     # output text file
     probability_file = sys.argv[3]
-    color_profile = generate_probability_color_profile(xvgfile, mode)
+    color_profile = generate_probability_color_profile(eigen_matrix, mode)
+    correlation_color_profile = generate_correlation_color_profile(eigen_matrix, 0)
     save_color_to_file(color_profile, probability_file)
