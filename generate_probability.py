@@ -22,9 +22,20 @@ def generate_probability_color_profile(eigenvectors, mode):
 
     return probability_by_res_norm
 
+# this function scans through the covariance matrix
+# and generates one value for one atom
+def get_one_correlation_value(cov_matrix, focus_atom, correlated_atom):
+    x_f = cov_matrix[focus_atom - 1, :]
+    y_f = cov_matrix[focus_atom, :]
+    z_f = cov_matrix[focus_atom + 1, :]
+
 # this function generates a color profile based on covariances of a chosen atom
 # with every atom in the system
-def generate_correlation_color_profile(mode, atom_number):
+# cov_matrix: covariance matrix before diagonalization
+# atom_number: atom to analyze
+def generate_correlation_color_profile(cov_matrix, focus_atom_number):
+    covariance_vector = cov_matrix[focus_atom_number - 1]
+
     return
 
 def save_color_to_file(color_profile, filename):
@@ -42,5 +53,5 @@ if __name__ == "__main__":
     mode = int(sys.argv[2])
     # output text file
     probability_file = sys.argv[3]
-    color_profile = generate_color_profile(xvgfile, mode)
+    color_profile = generate_probability_color_profile(xvgfile, mode)
     save_color_to_file(color_profile, probability_file)
