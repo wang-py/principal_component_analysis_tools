@@ -70,5 +70,4 @@ if __name__ == "__main__":
     # output text file
     probability_file = sys.argv[3]
     color_profile = generate_probability_color_profile(eigen_matrix, mode)
-    correlation_color_profile = generate_correlation_color_profile(eigen_matrix, 0)
-    save_color_to_file(correlation_color_profile, probability_file)
+    save_color_to_file(color_profile, probability_file)
