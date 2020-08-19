@@ -16,7 +16,7 @@ if __name__ == '__main__':
     #print("S2 ",v.shape)
     #print("sum(S-S2)=",np.sum(u-v))
     #print("D = ", s)
-    with open('eigenvalues.npy','wb') as f:
-        np.save(f,s)
+    with open('covariance.npy','wb') as f:
+        np.save(f,cov)
     with open('eigenvectors.npy', 'wb') as f:
         np.save(f,u)
