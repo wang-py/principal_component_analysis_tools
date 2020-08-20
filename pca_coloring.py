@@ -28,7 +28,7 @@ def corr(cov_xy, std_x, std_y):
 
 # this function scans through the covariance matrix
 # and generates one value for one atom
-def get_one_atom_correlation_value(cov_matrix, focus_atom, correlated_atom):
+def get_one_correlation_value(cov_matrix, focus_atom, correlated_atom):
     # get the variances from the diagonal of the covariance matrix
     # then do the correlation calculation
     var = np.diagonal(cov_matrix)
