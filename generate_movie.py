@@ -92,7 +92,7 @@ if __name__ == "__main__":
     ppdb.read_pdb(input_pdb)
     # generate color profile based on chosen mode
     # index of N2 cluster
-    res_index = 550
+    res_index = 1650
     color_profile = generate_correlation_color_profile(input_ev, res_index)
     
     index = read_ndx(input_index)
