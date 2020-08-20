@@ -42,7 +42,7 @@ def get_one_correlation_value(cov_matrix, focus_atom, correlated_atom):
         for ci in c:
             std_f = np.sqrt(var[fi])
             std_c = np.sqrt(var[ci])
-            cov_fc = var[fi, ci]
+            cov_fc = cov_matrix[fi, ci]
             cor_sum += np.abs(corr(cov_fc, std_f, std_c))
 
     return cor_sum
