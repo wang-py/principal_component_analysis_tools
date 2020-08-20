@@ -61,6 +61,9 @@ def generate_correlation_color_profile(cov_matrix, focus_atom_number_index):
         one_correlation = get_one_correlation_value(cov_matrix, focus_atom_number_index, i)
         correlation_vector.append(one_correlation)
 
+    # normalize using the max value
+    correlation_vector = correlation_vector / np.amax(correlation_vector)
+
     return correlation_vector
 
 def save_color_to_file(color_profile, filename):
