@@ -22,9 +22,16 @@ def generate_probability_color_profile(eigenvectors, mode):
 
     return probability_by_res_norm
 
+# get correlation from covariance
+def corr(cov_xy, std_x, std_y):
+    return cov_xy / (std_x * std_y)
+
 # this function scans through the covariance matrix
 # and generates one value for one atom
-def get_one_correlation_value(cov_matrix, focus_atom, correlated_atom):
+def get_one_atom_correlation_value(cov_matrix, focus_atom, correlated_atom):
+    # get the variances from the diagonal of the covariance matrix
+    # then do the correlation calculation
+    var = np.diagonal(cov_matrix)
     # indices of the focus atom
     f = [focus_atom, focus_atom + 1, focus_atom + 2]
     # indices of the correlated atom
@@ -33,7 +40,10 @@ def get_one_correlation_value(cov_matrix, focus_atom, correlated_atom):
     # scanning loop
     for fi in f:
         for ci in c:
-            cor_sum += np.abs(cov_matrix[fi, ci])
+            std_f = np.sqrt(var[fi])
+            std_c = np.sqrt(var[ci])
+            cov_fc = var[fi, ci]
+            cor_sum += np.abs(corr(cov_fc, std_f, std_c))
 
     return cor_sum
     
