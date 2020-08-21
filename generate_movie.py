@@ -85,7 +85,7 @@ if __name__ == "__main__":
     # PCA mode
     mode_index = int(sys.argv[4])
     mode = input_ev[:, mode_index]
-    # covariance matrix
+    # input covariance matrix
     input_cov = np.load(sys.argv[5])
     # output movie pdb
     movie_pdb = sys.argv[6]
