@@ -85,15 +85,17 @@ if __name__ == "__main__":
     # PCA mode
     mode_index = int(sys.argv[4])
     mode = input_ev[:, mode_index]
+    # input covariance matrix
+    input_cov = np.load(sys.argv[5])
     # output movie pdb
-    movie_pdb = sys.argv[5]
+    movie_pdb = sys.argv[6]
     # biopandas dataframe
     ppdb = PandasPdb()
     ppdb.read_pdb(input_pdb)
     # generate color profile based on chosen mode
     # index of N2 cluster
     res_index = 1650
-    color_profile = generate_correlation_color_profile(input_ev, res_index)
+    color_profile = generate_correlation_color_profile(input_cov, res_index)
     
     index = read_ndx(input_index)
     colored_pdb_df = change_bfactor_to_color(ppdb.df['ATOM'], index['System'], color_profile)
