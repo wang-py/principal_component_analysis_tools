@@ -48,11 +48,11 @@ def generate_correlation_color_profile(cov_matrix, focus_atom_number_index):
     correlation_vector = []
 
     for i in range(0, atom_index_max, 3):
-        one_correlation = get_one_correlation_value(cov_matrix, focus_atom_number_index, i)
+        one_correlation = get_one_correlation_value(cov_matrix, focus_atom_number_index * 3, i)
         correlation_vector.append(one_correlation)
 
     # normalize by the focus atom
-    focus_atom_variance = correlation_vector[int(focus_atom_number_index / 3)]
+    focus_atom_variance = correlation_vector[focus_atom_number_index]
     correlation_vector /= focus_atom_variance
 
     return correlation_vector
