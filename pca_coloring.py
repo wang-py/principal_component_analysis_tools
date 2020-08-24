@@ -51,6 +51,10 @@ def generate_correlation_color_profile(cov_matrix, focus_atom_number_index):
         one_correlation = get_one_correlation_value(cov_matrix, focus_atom_number_index, i)
         correlation_vector.append(one_correlation)
 
+    # normalize by the focus atom
+    focus_atom_variance = correlation_vector[int(focus_atom_number_index / 3)]
+    correlation_vector /= focus_atom_variance
+
     return correlation_vector
 
 def save_color_to_file(color_profile, filename):
