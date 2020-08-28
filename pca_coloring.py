@@ -1,15 +1,13 @@
 import sys
 import numpy as np
 
-def generate_probability_color_profile(eigenvectors, mode):
-    # selected mode for output
-    output_mode = eigenvectors[:, mode]
+def generate_probability_color_profile(mode):
     # reshape the vector into N * 3 (N is number of residues)
-    number_of_res = int(output_mode.shape[0] / 3)
-    output_mode_reshaped = output_mode.reshape(number_of_res, 3)
+    number_of_res = int(mode.shape[0] / 3)
+    mode_reshaped = mode.reshape(number_of_res, 3)
 
     # find the probability vector by squaring the eigenvector
-    probability_vec = np.square(output_mode_reshaped)
+    probability_vec = np.square(mode_reshaped)
 
     # sum up three directions of probability components
     probability_by_res = np.sum(probability_vec, axis=1)
@@ -70,8 +68,9 @@ if __name__ == "__main__":
     eigen_matrix_file = sys.argv[1]
     eigen_matrix = np.load(eigen_matrix_file)
     # mode number
-    mode = int(sys.argv[2])
+    mode_index = int(sys.argv[2])
+    mode = eigen_matrix[:, mode_index]
     # output text file
     probability_file = sys.argv[3]
-    color_profile = generate_probability_color_profile(eigen_matrix, mode)
+    color_profile = generate_probability_color_profile(mode)
     save_color_to_file(color_profile, probability_file)
