@@ -16,7 +16,7 @@ def generate_probability_color_profile(mode):
     probability_by_res_norm = probability_by_res / np.amax(probability_by_res)
 
     # finding cubic root
-    probability_by_res_norm = np.cbrt(probability_by_res_norm)
+    probability_by_res_norm = np.sqrt(probability_by_res_norm)
 
     return probability_by_res_norm
 
