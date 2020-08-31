@@ -7,7 +7,7 @@ START=$1
 STOP=$2
 
 # filename prefix
-FILENAME=mode
+FILENAME=$3
 
 # separating pdb to initial pdb and xtc
 for i in $( seq $START $STOP )
