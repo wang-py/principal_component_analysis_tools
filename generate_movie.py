@@ -12,7 +12,7 @@ import shutil
 
 # change b factors into color values
 def change_bfactor_to_color(df, indices, color_profile):
-    modify_items = ['b_factor']
+    modify_items = 'b_factor'
     to_change = df.iloc[match_col_in_int_list(df, 'atom_number', indices)]
     color_values = to_change[modify_items]
     color_values = color_profile
