@@ -94,9 +94,9 @@ if __name__ == "__main__":
     ppdb.read_pdb(input_pdb)
     # generate color profile based on chosen mode
     # index of N2 cluster
-    res_index = 550
+    res_index = 1672#550
     color_profile = generate_correlation_color_profile(input_cov, res_index)
     
     index = read_ndx(input_index)
     colored_pdb_df = change_bfactor_to_color(ppdb.df['ATOM'], index['System'], color_profile)
-    make_movie(colored_pdb_df, movie_pdb, mode, index['System'], 16, 150)
+    make_movie(colored_pdb_df, movie_pdb, mode, index['System'], 80, 150)
