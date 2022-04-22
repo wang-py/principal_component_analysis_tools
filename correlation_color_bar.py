@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+import matplotlib as mpl
 from mpl_toolkits.axes_grid1 import make_axes_locatable
 import numpy as np
 from pygments import highlight
@@ -20,7 +21,7 @@ if __name__ == '__main__':
     white = np.array([1.0, 1.0, 1.0])
     red = np.array([1.0, 0.0, 0.0])
     # color gradient
-    shades = 8
+    shades = 11
     gradient = np.linspace(white, red, shades)
 
     # generating color map
@@ -30,16 +31,19 @@ if __name__ == '__main__':
     RGB = np.zeros([100,3])
     higher_bound = 1.0
     # calculate the RGB values and normalize it
-    RGB[:, 0] = np.linspace(1.0, 1.0, 100) 
+    RGB[:, 0] = np.linspace(1.0, higher_bound, 100) 
     RGB[:, 1] = np.linspace(1.0, 0.0, 100) 
     RGB[:, 2] = np.linspace(1.0, 0.0, 100) 
-    im = ax.imshow(RGB.reshape((10, 10, 3)), cmap=cmap)
+    im = ax.imshow(RGB.reshape((10, 10, 3)),interpolation='nearest', cmap=cmap)
+    upper_bound = 0.3
+    bounds = np.linspace(0, upper_bound, shades)
+    norm = mpl.colors.BoundaryNorm(bounds, cmap.N)
+
 
     # create an axes on the right side of ax. The width of cax will be 5%
     # of ax and the padding between cax and ax will be fixed at 0.05 inch.
     divider = make_axes_locatable(ax)
-    cax = divider.append_axes("right", size="10%", pad=0.05)
-
-    plt.colorbar(im, cax=cax)
+    cax = divider.append_axes("right", size="20%", pad=0.05)
+    plt.colorbar(mpl.cm.ScalarMappable(norm=norm, cmap=cmap), cax=cax, format="%.2f", ticks=bounds)
 
     plt.show()
