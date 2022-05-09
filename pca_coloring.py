@@ -54,6 +54,7 @@ def generate_correlation_color_profile(cov_matrix, focus_atom_number_index):
     # normalize by the focus atom
     focus_atom_variance = correlation_vector[focus_atom_number_index]
     correlation_vector /= focus_atom_variance
+    #correlation_vector = np.sqrt(correlation_vector)
 
     return correlation_vector
 

@@ -43,7 +43,9 @@ if __name__ == '__main__':
     # create an axes on the right side of ax. The width of cax will be 5%
     # of ax and the padding between cax and ax will be fixed at 0.05 inch.
     divider = make_axes_locatable(ax)
-    cax = divider.append_axes("right", size="20%", pad=0.05)
+    cax = divider.append_axes("right", size="10%", pad=0.05)
+    ax.remove()
     plt.colorbar(mpl.cm.ScalarMappable(norm=norm, cmap=cmap), cax=cax, format="%.2f", ticks=bounds)
+    plt.savefig("colorbar_upper_bound_%.2f.png"%upper_bound,dpi=300)
 
     plt.show()
