@@ -35,7 +35,7 @@ if __name__ == '__main__':
     RGB[:, 1] = np.linspace(1.0, 0.0, 100) 
     RGB[:, 2] = np.linspace(1.0, 0.0, 100) 
     im = ax.imshow(RGB.reshape((10, 10, 3)),interpolation='nearest', cmap=cmap)
-    upper_bound = 0.3
+    upper_bound = 0.5
     bounds = np.linspace(0, upper_bound, shades)
     norm = mpl.colors.BoundaryNorm(bounds, cmap.N)
 
