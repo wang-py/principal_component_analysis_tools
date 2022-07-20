@@ -75,6 +75,27 @@ def make_movie(df, output_pdb, mode, indices, amplitude, frames):
     movie.close()
     rm_buffer(buffer_folder)
 
+def match_col_in_str_list(df,col,str_list):
+    matches = np.array([df[col].to_numpy().astype(str) == i for i in str_list])
+    return np.any(matches,axis=0)
+
+def color_subunits_by_correlation(df):
+    """
+    color the subunits by their correlation to N2
+    """
+    # find average correlation per subunit
+    chains = df['chain_id'].unique()
+    for chain in chains:
+        to_change = df.iloc[match_col_in_str_list(df, 'chain_id', chain)]
+        match = df['chain_id'] == chain
+        corr_vals = to_change['b_factor']
+        avg_corr = np.mean(corr_vals.to_numpy())
+        # change the b factor of each atom in a subunit to the average correlation
+        df.loc[df[match].index[:], 'b_factor'] = avg_corr
+
+    # output the changed pdb dataframe
+    return df
+
 if __name__ == "__main__":
     # starting structure
     input_pdb = sys.argv[1]
@@ -99,4 +120,6 @@ if __name__ == "__main__":
     
     index = read_ndx(input_index)
     colored_pdb_df = change_bfactor_to_color(ppdb.df['ATOM'], index['System'], color_profile)
+    # average correlation per subunit
+    colored_pdb_df = color_subunits_by_correlation(colored_pdb_df)
     make_movie(colored_pdb_df, movie_pdb, mode, index['System'], 80, 150)
