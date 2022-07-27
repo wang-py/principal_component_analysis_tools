@@ -6,6 +6,7 @@ from pca_coloring import generate_correlation_color_profile
 from gmx_file_processing import match_col_in_int_list, read_ndx
 from modes import shift_by_mode
 import numpy as np
+import matplotlib.pyplot as plt
 import sys
 import os
 import shutil
@@ -96,6 +97,33 @@ def color_subunits_by_correlation(df):
     # output the changed pdb dataframe
     return df
 
+def get_correlation_vs_subunit(df):
+    """
+    get correlation vs subunit
+    """
+    # get the chains
+    chains = df['chain_id'].unique()
+    # store correlation values
+    num_of_chains = len(chains)
+    correlations = np.zeros([num_of_chains, 1] ,dtype=float)
+    for i in range(num_of_chains):
+        chain = chains[i]
+        curr_chain = df.iloc[match_col_in_str_list(df, 'chain_id', chain)]
+        corr_vals = curr_chain['b_factor']
+        avg_corr = np.mean(corr_vals.to_numpy())
+        correlations[i, 0] = avg_corr
+    
+    return chains, correlations
+    
+def plot_correlation_vs_subunit(chains, correlations):
+    plt.plot(np.arange(correlations.shape[0]), correlations)
+    plt.xticks(ticks=np.arange(correlations.shape[0]), labels=chains)
+    plt.xlabel("chain ID")
+    plt.ylabel("Average N2 correlation per subunit")
+    plt.title("Average N2 correlation of all chains")
+    plt.show()
+    pass
+
 if __name__ == "__main__":
     # starting structure
     input_pdb = sys.argv[1]
@@ -120,6 +148,8 @@ if __name__ == "__main__":
     
     index = read_ndx(input_index)
     colored_pdb_df = change_bfactor_to_color(ppdb.df['ATOM'], index['System'], color_profile)
+    chains, corr = get_correlation_vs_subunit(colored_pdb_df)
+    plot_correlation_vs_subunit(chains, corr)
     # average correlation per subunit
-    colored_pdb_df = color_subunits_by_correlation(colored_pdb_df)
-    make_movie(colored_pdb_df, movie_pdb, mode, index['System'], 80, 150)
+    #colored_pdb_df = color_subunits_by_correlation(colored_pdb_df)
+    #make_movie(colored_pdb_df, movie_pdb, mode, index['System'], 80, 150)
